@@ -37,7 +37,6 @@ public class AuthenticationController {
 
         BaseResponse response = new BaseResponse();
         response.setData(token);
-        
         return ResponseEntity.ok(response);
     }
 
@@ -52,4 +51,5 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(response);
     }
+
 }

@@ -27,6 +27,9 @@ public class AuthenticationServicesImp implements AuthenticationServices {
 
     @Override
     public String authenticate(String username, String password) {
+        String data = jwtHelper.validateToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIZWxsbyJ9.8YTr2DBu5qb85hVE8BNU63uTg5uimLlOQHk1YyPbkp0");
+        System.out.println(data);
+
         String token = "";
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
@@ -58,4 +61,5 @@ public class AuthenticationServicesImp implements AuthenticationServices {
         userRepository.save(user);
         return true;
     }
+
 }
