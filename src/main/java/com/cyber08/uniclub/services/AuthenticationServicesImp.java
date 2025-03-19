@@ -4,6 +4,7 @@ import com.cyber08.uniclub.entity.Role;
 import com.cyber08.uniclub.entity.User;
 import com.cyber08.uniclub.respository.RoleRepository;
 import com.cyber08.uniclub.respository.UserRepository;
+import com.cyber08.uniclub.utils.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,14 +22,20 @@ public class AuthenticationServicesImp implements AuthenticationServices {
     @Autowired
     private RoleServices roleServices;
 
+    @Autowired
+    private JwtHelper jwtHelper;
+
     @Override
-    public boolean authenticate(String username, String password) {
+    public String authenticate(String username, String password) {
+        String token = "";
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            return passwordEncoder.matches(password, user.getPassword());
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                token = jwtHelper.generateToken("Hello");
+            }
         }
-        return false;
+        return token;
     }
 
     @Override

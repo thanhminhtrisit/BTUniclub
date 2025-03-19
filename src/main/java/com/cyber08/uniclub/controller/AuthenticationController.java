@@ -3,9 +3,13 @@ package com.cyber08.uniclub.controller;
 import com.cyber08.uniclub.payload.response.BaseResponse;
 import com.cyber08.uniclub.services.AuthenticationServices;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Encoders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.crypto.SecretKey;
 
 /*
     {
@@ -29,13 +33,11 @@ public class AuthenticationController {
 
     @PostMapping("/sign-in")
     public ResponseEntity<?> signIn(@RequestParam String email, @RequestParam String password) {
-        boolean success = authenticationServices.authenticate(email, password);
+        String token = authenticationServices.authenticate(email, password);
 
         BaseResponse response = new BaseResponse();
-        response.setData(success);
-        response.setMessage(success?"Success":"Failed");
-        response.setCode(success ? 0 : 1);
-
+        response.setData(token);
+        
         return ResponseEntity.ok(response);
     }
 

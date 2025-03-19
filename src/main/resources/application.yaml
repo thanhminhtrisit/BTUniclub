@@ -8,3 +8,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+
+jwt:
+  secret: SaP7ZI/7gtXgHkeRldpNLzF+OJnqwBGjPTLHEumC8ew=
