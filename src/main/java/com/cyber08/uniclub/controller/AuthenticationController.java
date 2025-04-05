@@ -1,10 +1,12 @@
 package com.cyber08.uniclub.controller;
 
+import com.cyber08.uniclub.payload.request.SignUpRequest;
 import com.cyber08.uniclub.payload.response.BaseResponse;
 import com.cyber08.uniclub.services.AuthenticationServices;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Encoders;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,17 +39,14 @@ public class AuthenticationController {
 
         BaseResponse response = new BaseResponse();
         response.setData(token);
+
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<?> signUp(@RequestParam String fullname,@RequestParam String email, @RequestParam String password, @RequestParam String passwordConfirm) {
-        boolean success = authenticationServices.authenticateSignUp(fullname, email, password, passwordConfirm);
-
+    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
         BaseResponse response = new BaseResponse();
-        response.setData(success);
-        response.setCode(success ? 0 : 1);
-        response.setMessage(success?"Success":"Failed");
+        response.setData(signUpRequest);
 
         return ResponseEntity.ok(response);
     }

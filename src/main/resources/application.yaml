@@ -8,6 +8,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 30MB
+      file-size-threshold: 5MB
 jwt:
   secret: SaP7ZI/7gtXgHkeRldpNLzF+OJnqwBGjPTLHEumC8ew=
+
+file:
+  upload: C:\Users\ADMIN\Desktop\uploadtest

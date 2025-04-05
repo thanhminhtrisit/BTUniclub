@@ -27,7 +27,7 @@ public class JwtHelper {
 //                .decryptWith(key)
 //                .build()
 //                .parseEncryptedClaims(token);
-        String data = "";
+        String data = null;
         try {
             data = Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().getSubject();
         }
